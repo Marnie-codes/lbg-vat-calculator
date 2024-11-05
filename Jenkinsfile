@@ -1,23 +1,21 @@
 pipeline {
-    agent any
+	agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                //Get some code from a GitHub repo
-
-                git branch:'main', url:'https://github.com/Marnie-codes/lbg-vat-calculator.git'
-            }
-        }
-        stage('SonarQube Analysis') {
-            environment {
-            scannerHome = tool 'sonarqube'
-        }
+	stages {
+		stage('Checkout'){
 			steps {
-			    withSonarQubeEnv('sonar-qube-1') {
-				sh "${scannerHome}/bin/sonar-scanner"
+				git branch: 'main', url: 'https://github.com/Marnie-codes/lbg-vat-calculator.gitgit'
 			}
 		}
+		stage('SonarQube Analysis'){
+			environment {
+				scannerHome = tool 'sonarqube'
+			}
+				steps {
+					withSonarQubeEnv('sonar-qube-1') {
+						sh "${scannerHome}/bin/sonar-scanner"
+					}
+				}
+		}
 	}
-}
 }
